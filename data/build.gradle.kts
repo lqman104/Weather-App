@@ -45,6 +45,11 @@ dependencies {
     implementation(AndroidDependencies.Json.Moshi.plugin)
     kapt(AndroidDependencies.Json.Moshi.codegen)
 
+    // DATABASE
+    implementation(AndroidDependencies.AndroidX.Room.runtime)
+    implementation(AndroidDependencies.AndroidX.Room.ktx)
+    kapt(AndroidDependencies.AndroidX.Room.compiler)
+
     implementation(AndroidDependencies.Network.OkHttp.logging)
 
     implementation(AndroidDependencies.Logger.Timber.plugin)

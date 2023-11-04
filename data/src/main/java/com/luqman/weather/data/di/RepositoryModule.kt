@@ -1,10 +1,10 @@
 package com.luqman.weather.data.di
 
-import com.luqman.weather.data.repository.DataSource
-import com.luqman.weather.data.repository.LocalDataSource
-import com.luqman.weather.data.repository.DataRepository
-import com.luqman.weather.data.repository.RemoteDataSource
-import com.luqman.weather.data.services.SomeService
+import com.luqman.weather.data.repository.WeatherDataSource
+import com.luqman.weather.data.repository.LocalWeatherDataSource
+import com.luqman.weather.data.repository.WeatherDataRepository
+import com.luqman.weather.data.repository.RemoteWeatherDataSource
+import com.luqman.weather.data.services.WeatherService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,31 +17,31 @@ import retrofit2.Retrofit
 object RepositoryModule {
 
     @Provides
-    fun provideProvinceApiService(
+    fun provideWeatherApiService(
         retrofit: Retrofit
-    ): SomeService = retrofit.create(SomeService::class.java)
+    ): WeatherService = retrofit.create(WeatherService::class.java)
 
     @Provides
     @LocalSource
-    fun provideProvinceLocalDataSource(): DataSource = LocalDataSource(
+    fun provideWeatherLocalDataSource(): WeatherDataSource = LocalWeatherDataSource(
         Dispatchers.IO
     )
 
     @Provides
     @RemoteSource
-    fun provideProvinceRemoteDataSource(
-        someService: SomeService
-    ): DataSource = RemoteDataSource(
-        someService,
+    fun provideWeatherRemoteDataSource(
+        weatherService: WeatherService
+    ): WeatherDataSource = RemoteWeatherDataSource(
+        weatherService,
         Dispatchers.IO
     )
 
     @Provides
-    fun provideProvinceRepository(
-        @RemoteSource remoteDataSource: DataSource,
-        @LocalSource localDataSource: DataSource
-    ): DataSource = DataRepository(
-        remoteDataSource = remoteDataSource,
-        localDataSource = localDataSource
+    fun provideWeatherRepository(
+        @RemoteSource remoteWeatherDataSource: WeatherDataSource,
+        @LocalSource localWeatherDataSource: WeatherDataSource
+    ): WeatherDataSource = WeatherDataRepository(
+        remoteWeatherDataSource = remoteWeatherDataSource,
+        localWeatherDataSource = localWeatherDataSource
     )
 }

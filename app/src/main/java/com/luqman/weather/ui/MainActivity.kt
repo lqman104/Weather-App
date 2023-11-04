@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.luqman.weather.data.repository.model.Response
+import com.luqman.weather.data.repository.model.Weather
 import com.luqman.weather.uikit.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -63,7 +63,7 @@ fun MainScreen(
 
 @Composable
 fun MainContent(
-    list: List<Response>,
+    list: List<Weather>,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -109,7 +109,7 @@ fun SnackBarComponentPreview() {
         Surface {
             MainContent(
                 modifier = Modifier.fillMaxSize(),
-                list = listOf(Response(1, "test"), Response(1, "test")),
+                list = listOf(Weather(1, "test"), Weather(1, "test")),
                 onQueryChange = {}
             )
         }
