@@ -51,7 +51,6 @@ android {
 dependencies {
     implementation(project(":uikit"))
     implementation(project(":core"))
-    implementation(project(":domain"))
     implementation(project(":data"))
     implementation(AndroidDependencies.AndroidX.CoreKtx.plugin)
     implementation(AndroidDependencies.AndroidX.Lifecycle.plugin)

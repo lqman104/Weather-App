@@ -16,5 +16,4 @@ rootProject.name = "Weather Apps"
 include ':app'
 include ':data'
 include ':core'
-include ':domain'
-include ':uikit'
+    include ':uikit'
