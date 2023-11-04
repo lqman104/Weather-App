@@ -1,13 +1,17 @@
 package com.luqman.weather.data.di
 
-import com.luqman.weather.data.repository.WeatherDataSource
+import android.content.Context
+import androidx.room.Room
+import com.luqman.weather.data.database.WeatherDatabase
 import com.luqman.weather.data.repository.LocalWeatherDataSource
-import com.luqman.weather.data.repository.WeatherDataRepository
 import com.luqman.weather.data.repository.RemoteWeatherDataSource
+import com.luqman.weather.data.repository.WeatherDataRepository
+import com.luqman.weather.data.repository.WeatherDataSource
 import com.luqman.weather.data.services.WeatherService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
@@ -22,8 +26,18 @@ object RepositoryModule {
     ): WeatherService = retrofit.create(WeatherService::class.java)
 
     @Provides
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ): WeatherDatabase = Room.databaseBuilder(
+        context, WeatherDatabase::class.java, "weather_database"
+    ).build()
+
+    @Provides
     @LocalSource
-    fun provideWeatherLocalDataSource(): WeatherDataSource = LocalWeatherDataSource(
+    fun provideWeatherLocalDataSource(
+        database: WeatherDatabase
+    ): WeatherDataSource = LocalWeatherDataSource(
+        database,
         Dispatchers.IO
     )
 

@@ -1,9 +1,11 @@
 package com.luqman.weather.data.repository
 
+import com.luqman.weather.data.database.WeatherDatabase
 import com.luqman.weather.data.repository.model.Weather
 import kotlinx.coroutines.CoroutineDispatcher
 
 class LocalWeatherDataSource(
+    private val database: WeatherDatabase,
     private val dispatcher: CoroutineDispatcher
 ) : WeatherDataSource {
 
