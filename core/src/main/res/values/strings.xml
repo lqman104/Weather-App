@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="timeout_error_exception">Tidak dapat menghubungkan keserver</string>
+  <string name="no_connection_error_exception">Tidak ada internet, coba periksa koneksi anda</string>
+  <string name="json_parsing_error_exception">Tidak dapat memuat data</string>
+  <string name="unknow_error_exception">Terjadi kesalahan aplikasi, coba lagi nanti</string>
+</resources>
