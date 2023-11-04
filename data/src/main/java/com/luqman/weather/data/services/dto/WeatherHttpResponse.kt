@@ -59,7 +59,7 @@ data class ListItem(
 	val dtTxt: String? = null,
 
 	@Json(name="weather")
-	val weather: List<WeatherItem?>? = null,
+	val weather: List<WeatherItem>? = null,
 
 	@Json(name="main")
 	val main: Main? = null,

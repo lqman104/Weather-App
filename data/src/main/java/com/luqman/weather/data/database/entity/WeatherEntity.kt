@@ -9,13 +9,18 @@ import androidx.room.PrimaryKey
 data class WeatherEntity(
     @PrimaryKey
     val id: Int = 0,
+    val city: String = "",
     val icon: String = "",
-    var weather: String = "",
-    var description: String = "",
-    var temp: Double = 0.0,
-    var tempFeelsLike: Double = 0.0,
-    var tempMin: Double = 0.0,
-    var tempMax: Double = 0.0,
-    var date: String = "",
-    var time: String = ""
+    val weather: String = "",
+    val description: String = "",
+    val humidity: Int = 0,
+    val windSpeed: Double = 0.0,
+    val windDeg: Int = 0,
+    val windGust: Double = 0.0,
+    val temp: Double = 0.0,
+    val tempFeelsLike: Double = 0.0,
+    val tempMin: Double = 0.0,
+    val tempMax: Double = 0.0,
+    val date: String = "",
+    val time: String = ""
 )

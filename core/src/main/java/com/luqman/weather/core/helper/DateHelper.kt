@@ -1,12 +1,14 @@
-package com.luqman.weather.helper
+package com.luqman.weather.core.helper
 
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 object DateHelper {
 
     private const val SIMPLE_DATE = "dd-MM-yyyy"
+    private const val SIMPLE_DATE_VARIANT = "yyyy-MM-dd"
 
     fun Long?.toDate(toFormat: String = SIMPLE_DATE): String {
         return if (this == null || this == 0L) {
@@ -16,6 +18,11 @@ object DateHelper {
             val date = Date(this)
             simpleDateFormat.format(date)
         }
+    }
 
+    fun currentDate(toFormat: String = SIMPLE_DATE_VARIANT): String {
+        val time = Calendar.getInstance().time
+        val simpleDateFormat = SimpleDateFormat(toFormat, Locale.getDefault())
+        return simpleDateFormat.format(time)
     }
 }

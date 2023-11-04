@@ -8,14 +8,7 @@ import com.squareup.moshi.JsonClass
 * */
 @JsonClass(generateAdapter = true)
 data class BaseResponse<T>(
-    @field:Json(name="data")
     val data: T,
-
-    @field:Json(name="message")
-    val message: String? = null,
-
-    @field:Json(name="status")
-    val status: String? = null
 )
 
 @JsonClass(generateAdapter = true)
@@ -23,6 +16,6 @@ data class ErrorResponse(
     @field:Json(name="message")
     val message: String? = null,
 
-    @field:Json(name="status")
-    val status: String? = null
+    @field:Json(name="code")
+    val code: Int? = null
 )
