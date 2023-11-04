@@ -4,7 +4,7 @@ import com.luqman.weather.core.BuildConfig
 import com.luqman.weather.core.network.ApiEndpoint
 import com.luqman.weather.core.network.ApiEndpoint.API_KEY
 import com.luqman.weather.core.network.interceptor.ErrorInterceptor
-import com.luqman.weather.core.network.interceptor.HeaderInterceptor
+import com.luqman.weather.core.network.interceptor.ApiKeyInterceptor
 import com.luqman.weather.core.network.interceptor.JsonContentTypeInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -39,7 +39,7 @@ object NetworkModule {
             .addInterceptor(
                 ErrorInterceptor(moshi)
             )
-            .addInterceptor(HeaderInterceptor())
+            .addInterceptor(ApiKeyInterceptor())
             .addInterceptor(JsonContentTypeInterceptor())
 
         if (BuildConfig.DEBUG) {
@@ -59,7 +59,5 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
-    }
+    fun provideMoshi(): Moshi = Moshi.Builder().build()
 }
