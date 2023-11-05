@@ -18,7 +18,7 @@ class LocalWeatherDataSource(
     override suspend fun fetch(city: String?): Resource<List<Weather>> {
         return withContext(dispatcher) {
             try {
-                val response = weatherDao.getAll()
+                val response = weatherDao.getAll(city)
                 val list = response.map {
                     it.toModel()
                 }

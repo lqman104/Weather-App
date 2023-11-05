@@ -18,7 +18,7 @@ class WeatherDataRepository(
     override suspend fun search(city: String): Flow<Resource<List<Weather>>> = flow {
         emit(Resource.Loading())
 
-        val localData = localWeatherDataSource.fetch()
+        val localData = localWeatherDataSource.fetch(city)
         if (localData is Resource.Success && localData.data?.isNotEmpty() == true) {
             emit(localData)
         }

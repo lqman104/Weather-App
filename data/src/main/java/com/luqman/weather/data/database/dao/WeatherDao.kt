@@ -9,8 +9,8 @@ import com.luqman.weather.data.database.entity.WeatherEntity
 @Dao
 interface WeatherDao {
 
-    @Query("SELECT * FROM weather")
-    suspend fun getAll(): List<WeatherEntity>
+    @Query("SELECT * FROM weather WHERE city=:city")
+    suspend fun getAll(city: String? = null): List<WeatherEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(entities: List<WeatherEntity>)
