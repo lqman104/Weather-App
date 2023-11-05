@@ -1,7 +1,9 @@
 package com.luqman.weather.data.services.dto
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class WeatherHttpResponse(
 
 	@Json(name="city")
@@ -20,6 +22,7 @@ data class WeatherHttpResponse(
 	val list: List<ListItem>? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class Coordinate(
 
 	@Json(name="lon")
@@ -29,6 +32,7 @@ data class Coordinate(
 	val lat: String? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class Wind(
 
 	@Json(name="deg")
@@ -41,6 +45,7 @@ data class Wind(
 	val gust: Double? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class ListItem(
 
 	@Json(name="dt")
@@ -74,6 +79,7 @@ data class ListItem(
 	val wind: Wind? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class WeatherItem(
 
 	@Json(name="icon")
@@ -89,12 +95,14 @@ data class WeatherItem(
 	val id: Int? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class Clouds(
 
 	@Json(name="all")
 	val all: Int? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class Main(
 
 	@Json(name="temp")
@@ -125,12 +133,14 @@ data class Main(
 	val tempMax: Double? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class Rain(
 
 	@Json(name="3h")
 	val jsonMember3h: Double? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class City(
 
 	@Json(name="country")
@@ -158,6 +168,7 @@ data class City(
 	val population: Int? = null
 )
 
+@JsonClass(generateAdapter = true)
 data class Sys(
 
 	@Json(name="pod")

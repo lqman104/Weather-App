@@ -6,6 +6,7 @@ import com.luqman.weather.core.network.exception.ApiException
 import com.luqman.weather.core.network.model.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 suspend fun <T> runCatchingResponse(
     dispatcher: CoroutineDispatcher,
@@ -15,6 +16,7 @@ suspend fun <T> runCatchingResponse(
         try {
             action()
         } catch (e: Exception) {
+            Timber.e(e)
             if (e is ApiException) {
                 Resource.Error(
                     error = e.errorMessage

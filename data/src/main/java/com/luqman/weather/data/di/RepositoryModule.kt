@@ -8,7 +8,7 @@ import com.luqman.weather.data.repository.LocalWeatherDataSource
 import com.luqman.weather.data.repository.RemoteWeatherDataSource
 import com.luqman.weather.data.repository.WeatherDataRepository
 import com.luqman.weather.data.repository.WeatherDataSource
-import com.luqman.weather.data.services.WeatherService
+import com.luqman.weather.data.services.WeatherApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ object RepositoryModule {
     @Singleton
     fun provideWeatherApiService(
         retrofit: Retrofit
-    ): WeatherService = retrofit.create(WeatherService::class.java)
+    ): WeatherApiService = retrofit.create(WeatherApiService::class.java)
 
     @Provides
     @Singleton
@@ -51,9 +51,9 @@ object RepositoryModule {
     @Provides
     @RemoteSource
     fun provideWeatherRemoteDataSource(
-        weatherService: WeatherService
+        weatherApiService: WeatherApiService
     ): WeatherDataSource = RemoteWeatherDataSource(
-        weatherService,
+        weatherApiService,
         Dispatchers.IO
     )
 

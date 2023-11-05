@@ -4,14 +4,14 @@ import com.luqman.weather.core.network.exception.ImplementationShouldBeNotCalled
 import com.luqman.weather.core.network.extension.runCatchingResponse
 import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.model.Weather
-import com.luqman.weather.data.services.WeatherService
+import com.luqman.weather.data.services.WeatherApiService
 import com.luqman.weather.data.services.dto.WeatherHttpResponse
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class RemoteWeatherDataSource(
-    private val weatherService: WeatherService,
+    private val weatherApiService: WeatherApiService,
     private val dispatcher: CoroutineDispatcher
 ) : WeatherDataSource {
 
@@ -21,8 +21,8 @@ class RemoteWeatherDataSource(
 
     override suspend fun fetch(city: String?): Resource<List<Weather>> {
         return runCatchingResponse(dispatcher) {
-            val response = weatherService.search(city.orEmpty())
-            val list = response.data.toModel()
+            val response = weatherApiService.search(city.orEmpty())
+            val list = response.toModel()
             Resource.Success(list)
         }
     }

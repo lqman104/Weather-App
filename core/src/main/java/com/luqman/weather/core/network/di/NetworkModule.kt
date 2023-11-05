@@ -2,7 +2,6 @@ package com.luqman.weather.core.network.di
 
 import com.luqman.weather.core.BuildConfig
 import com.luqman.weather.core.network.ApiEndpoint
-import com.luqman.weather.core.network.ApiEndpoint.API_KEY
 import com.luqman.weather.core.network.interceptor.ErrorInterceptor
 import com.luqman.weather.core.network.interceptor.ApiKeyInterceptor
 import com.luqman.weather.core.network.interceptor.JsonContentTypeInterceptor
@@ -29,17 +28,14 @@ object NetworkModule {
         val logging: HttpLoggingInterceptor = HttpLoggingInterceptor {
             Timber.tag("Api log: ").d(it)
         }.apply {
-            redactHeader(API_KEY)
             setLevel(HttpLoggingInterceptor.Level.BODY)
         }
 
         val builder = OkHttpClient.Builder()
             .connectTimeout(30000, TimeUnit.SECONDS)
             .readTimeout(60000, TimeUnit.SECONDS)
-            .addInterceptor(
-                ErrorInterceptor(moshi)
-            )
             .addInterceptor(ApiKeyInterceptor())
+            .addInterceptor(ErrorInterceptor(moshi))
             .addInterceptor(JsonContentTypeInterceptor())
 
         if (BuildConfig.DEBUG) {
