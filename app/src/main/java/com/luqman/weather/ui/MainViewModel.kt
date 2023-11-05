@@ -7,8 +7,10 @@ import com.luqman.weather.core.helper.DateHelper.getIntHours
 import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.WeatherDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,9 +22,13 @@ class MainViewModel @Inject constructor(
     private val _state = MutableStateFlow(MainScreenState())
     val state = _state.asStateFlow()
 
+    @OptIn(FlowPreview::class)
     fun search(city: String) {
+        _state.value = _state.value.copy(
+            query = city.ifEmpty { null }
+        )
         viewModelScope.launch {
-            weatherDataSource.search(city).collect { response ->
+            weatherDataSource.search(city).debounce(800).collect { response ->
                 _state.value = _state.value.copy(
                     getDataState = response
                 )
@@ -42,5 +48,9 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun refresh() {
+        search(_state.value.query.orEmpty())
     }
 }

@@ -1,39 +1,7 @@
 <resources>
-  <string name="app_name">Weather Apps</string>
-
-  <!--  personal data page-->
-  <string name="national_id_label">KTP</string>
-  <string name="full_name_label">Nama Lengkap</string>
-  <string name="optional_text">Optional</string>
-  <string name="bank_account_label">Akun Bank</string>
-  <string name="done_button">Selesai</string>
-  <string name="birth_date_label">Tanggal Lahir</string>
-  <string name="education_label">Pendidikan</string>
-  <string name="personal_data_page_title">Data Diri</string>
-
-  <string name="ok_button">OK</string>
-  <string name="cancel_button">Batal</string>
-  <string name="submit_button">Kirim</string>
-  <string name="next_button">Lanjut</string>
-  <string name="try_again_button">Coba Lagi</string>
-
-  <!--  address data page-->
-  <string name="housing_type_label">Tipe Alamat</string>
-  <string name="number_label">No. Rumah</string>
-  <string name="domicile_label">Alamat Domisili</string>
-  <string name="province_label">Provinsi</string>
-  <string name="address_page_title">Alamat</string>
-  <string name="register_title">Registrasi</string>
-
-  <!-- education-->
-  <string name="elementary">SD</string>
-  <string name="junior_school">SMP</string>
-  <string name="high_school">SMA</string>
-  <string name="bachelor">S1</string>
-  <string name="graduate">S2</string>
-  <string name="post_graduate">S3</string>
-  <string name="house">Rumah</string>
-  <string name="office">Kantor</string>
-  <string name="submit_page_title">Kelengkapan data</string>
-  <string name="submit_page_subtitle">Periksa kembali kelengkapan dan kesesuaian data mu sebelum mengirim data.</string>
+    <string name="app_name">Weather Apps</string>
+    <string name="input_city_name">Masukan nama kota</string>
+    <string name="input_city_name_instruction">Untuk mendapatkan data cuaca, \n Anda dapat memasukan nama kota yang akan dicari.</string>
+    <string name="data_not_found">Data tidak dapat ditemukan</string>
+    <string name="data_not_found_description">Pastikan nama kota yang anda input benar.</string>
 </resources>

@@ -21,9 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.luqman.weather.uikit.theme.AppTheme
 
-
 @Composable
-fun ErrorScreenComponent(
+fun MessageScreenComponent(
     modifier: Modifier = Modifier,
     title: String,
     message: String? = null,
@@ -36,12 +35,11 @@ fun ErrorScreenComponent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // TODO; change the default image error
         Image(
             imageVector = Icons.Default.Warning,
             contentDescription = null,
             modifier = Modifier
-                .widthIn(max = 200.dp, min = 180.dp)
+                .widthIn(max = 150.dp, min = 180.dp)
                 .aspectRatio(1f),
         )
         Spacer(modifier = Modifier.padding(8.dp))
@@ -64,10 +62,11 @@ fun ErrorScreenComponent(
             )
         }
 
-        if (showActionButton)
+        if (showActionButton) {
             Spacer(modifier = Modifier.padding(12.dp))
-        Button(onClick = { onActionButtonClicked() }) {
-            Text(text = actionButtonText)
+            Button(onClick = { onActionButtonClicked() }) {
+                Text(text = actionButtonText)
+            }
         }
     }
 }
@@ -76,7 +75,7 @@ fun ErrorScreenComponent(
 @Composable
 fun ErrorScreenComponentPreview() {
     AppTheme {
-        ErrorScreenComponent(
+        MessageScreenComponent(
             message = "Try again later",
             title = "No internet connection",
             showActionButton = true,

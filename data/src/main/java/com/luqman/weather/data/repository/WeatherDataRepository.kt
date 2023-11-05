@@ -28,9 +28,8 @@ class WeatherDataRepository(
         if (response is Resource.Success) {
             localWeatherDataSource.deleteAllData()
             localWeatherDataSource.save(response.data.orEmpty())
-
-            emit(response)
         }
+        emit(response)
     }
 
     override suspend fun save(weathers: List<Weather>) {

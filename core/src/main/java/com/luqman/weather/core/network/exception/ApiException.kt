@@ -40,7 +40,7 @@ sealed class ApiException : IOException() {
 
     data class UnknownError(
         val throwable: Throwable,
-        override val errorMessage: ResourceText = ResourceText.StringId(R.string.unknow_error_exception)
+        override val errorMessage: ResourceText = ResourceText.StringId(R.string.unknown_error_exception)
     ) : ApiException()
 
     class HttpApiException(
