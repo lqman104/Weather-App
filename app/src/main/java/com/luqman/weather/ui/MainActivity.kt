@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.model.Weather
+import com.luqman.weather.uikit.component.LoadingComponent
 import com.luqman.weather.uikit.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,24 +58,28 @@ fun MainScreen(
         viewModel.search("bekasi")
     }
 
-    val data by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsState()
 
-    if (data is Resource.Success) {
+    if (state.getDataState is Resource.Success) {
         MainContent(
-            list = data.data.orEmpty(),
             modifier = modifier.fillMaxSize(),
-            onQueryChange = {
-                viewModel.search(it)
-            }
+            allForecast = state.allForecast,
+            todayForecast = state.todayForecast,
+            onQueryChange = viewModel::search
+        )
+    } else {
+        LoadingComponent(
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
 
 @Composable
 fun MainContent(
-    list: List<Weather>,
+    modifier: Modifier = Modifier,
+    todayForecast: Weather? = null,
+    allForecast: List<Weather>? = null,
     onQueryChange: (String) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     var query by remember {
         mutableStateOf("")
@@ -90,10 +95,17 @@ fun MainContent(
             }
         )
 
+        if (todayForecast != null) {
+            WeatherCard(
+                modifier = Modifier.fillMaxWidth(),
+                weather = todayForecast
+            )
+        }
+
         LazyColumn(
             contentPadding = PaddingValues(vertical = 16.dp),
             content = {
-                items(list) {
+                items(allForecast.orEmpty()) {
                     Card(
                         shape = MaterialTheme.shapes.small,
                         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
@@ -111,6 +123,46 @@ fun MainContent(
     }
 }
 
+@Composable
+fun WeatherCard(
+    modifier: Modifier = Modifier,
+    weather: Weather,
+
+    ) {
+    Card(
+        modifier = modifier,
+    ) {
+        Text(
+            text = "Suhu:" + weather.temp.toString(),
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = "Seperti:" + weather.tempFeelsLike.toString(),
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = weather.weather,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = weather.description,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = weather.time,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = weather.date,
+            modifier = Modifier.padding(16.dp)
+        )
+        Text(
+            text = weather.city,
+            modifier = Modifier.padding(16.dp)
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun SnackBarComponentPreview() {
@@ -118,7 +170,7 @@ fun SnackBarComponentPreview() {
         Surface {
             MainContent(
                 modifier = Modifier.fillMaxSize(),
-                list = listOf(),
+                allForecast = listOf(),
                 onQueryChange = {}
             )
         }

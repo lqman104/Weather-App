@@ -10,7 +10,7 @@ import com.luqman.weather.data.database.entity.WeatherEntity
 interface WeatherDao {
 
     @Query("SELECT * FROM weather")
-    suspend fun getAllByDate(): List<WeatherEntity>
+    suspend fun getAll(): List<WeatherEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(entities: List<WeatherEntity>)

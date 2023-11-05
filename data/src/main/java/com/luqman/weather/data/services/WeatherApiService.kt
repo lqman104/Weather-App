@@ -13,6 +13,7 @@ interface WeatherApiService {
     @GET("data/2.5/forecast")
     suspend fun search(
         @Query("q") city: String,
-        @Query("units") units: String = WeatherUnits.METRIC.value
+        @Query("units") units: String = WeatherUnits.METRIC.value,
+        @Query("cnt") cnt: Int = 32, // represent 4 days forecast every 3 hours
     ): WeatherHttpResponse
 }
