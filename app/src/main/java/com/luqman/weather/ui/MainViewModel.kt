@@ -6,6 +6,8 @@ import com.luqman.weather.core.helper.DateHelper
 import com.luqman.weather.core.helper.DateHelper.getIntHours
 import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.WeatherDataSource
+import com.luqman.weather.data.repository.model.Weather
+import com.luqman.weather.ui.model.WeatherGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,14 +38,28 @@ class MainViewModel @Inject constructor(
                 if (response is Resource.Success) {
                     val endTime = DateHelper.currentTime(toFormat = DateHelper.HOUR)
                     // get all today forecast
-                    val todayForecast = response.data?.filter { it.date == DateHelper.currentDate() }
+                    val todayForecast =
+                        response.data?.filter { it.date == DateHelper.currentDate() }
                     // filtering the last time data comparing with current time
-                    val currentTimeForecast = todayForecast?.lastOrNull { it.time.getIntHours() < endTime.toInt() }
-
+                    val currentTimeForecast =
+                        todayForecast?.lastOrNull { it.time.getIntHours() < endTime.toInt() }
+                    // grouping
+                    var date = ""
+                    val parent = mutableListOf<WeatherGroup>()
+                    response.data.orEmpty().forEach {
+                        if (date != it.date) {
+                            date = it.date
+                            parent.add(
+                                WeatherGroup(date, mutableListOf(it))
+                            )
+                        } else {
+                            parent.lastOrNull()?.forecast?.add(it)
+                        }
+                    }
 
                     _state.value = _state.value.copy(
                         todayForecast = currentTimeForecast,
-                        allForecast = response.data.orEmpty()
+                        allForecast = parent
                     )
                 }
             }

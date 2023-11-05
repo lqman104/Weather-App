@@ -2,10 +2,11 @@ package com.luqman.weather.ui
 
 import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.model.Weather
+import com.luqman.weather.ui.model.WeatherGroup
 
 data class MainScreenState(
     val getDataState: Resource<List<Weather>>? = null,
-    val allForecast: List<Weather> = listOf(),
+    val allForecast: List<WeatherGroup> = listOf(),
     val todayForecast: Weather? = null,
     val query: String? = null,
 )

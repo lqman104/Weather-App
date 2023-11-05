@@ -1,7 +1,13 @@
 <resources>
     <string name="app_name">Weather Apps</string>
-    <string name="input_city_name">Masukan nama kota</string>
-    <string name="input_city_name_instruction">Untuk mendapatkan data cuaca, \n Anda dapat memasukan nama kota yang akan dicari.</string>
-    <string name="data_not_found">Data tidak dapat ditemukan</string>
-    <string name="data_not_found_description">Pastikan nama kota yang anda input benar.</string>
+    <string name="input_city_name">Enter the city name</string>
+    <string name="input_city_name_instruction">To get weather data, \n You can input the city name on search field.</string>
+    <string name="data_not_found">Data not found</string>
+    <string name="data_not_found_description">Please make sure your city name input.</string>
+    <string name="wind_gust_label">Wind gust</string>
+    <string name="wind_speed_label">Wind speed</string>
+    <string name="wind_degree_label">Wind degree</string>
+    <string name="speed_suffix">m/s</string>
+    <string name="humidity_label">Humidity</string>
+    <string name="all_four_days_forecast">All forecast</string>
 </resources>
