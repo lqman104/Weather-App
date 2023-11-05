@@ -17,6 +17,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.model.Weather
 import com.luqman.weather.uikit.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,15 +52,22 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     val viewModel: MainViewModel = viewModel()
-    val result by viewModel.response.collectAsState()
 
-    MainContent(
-        list = result,
-        modifier = modifier.fillMaxSize(),
-        onQueryChange = {
-            viewModel.search(it)
-        }
-    )
+    LaunchedEffect(Unit) {
+        viewModel.search("bekasi")
+    }
+
+    val data by viewModel.state.collectAsState()
+
+    if (data is Resource.Success) {
+        MainContent(
+            list = data.data.orEmpty(),
+            modifier = modifier.fillMaxSize(),
+            onQueryChange = {
+                viewModel.search(it)
+            }
+        )
+    }
 }
 
 @Composable
@@ -93,7 +102,7 @@ fun MainContent(
                             .fillMaxWidth()
                     ) {
                         Text(
-                            text = it.name,
+                            text = it.weather,
                             modifier = Modifier.padding(16.dp)
                         )
                     }
@@ -109,7 +118,7 @@ fun SnackBarComponentPreview() {
         Surface {
             MainContent(
                 modifier = Modifier.fillMaxSize(),
-                list = listOf(Weather(1, "test"), Weather(1, "test")),
+                list = listOf(),
                 onQueryChange = {}
             )
         }
