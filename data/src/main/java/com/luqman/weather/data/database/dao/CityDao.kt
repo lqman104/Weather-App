@@ -10,6 +10,9 @@ import com.luqman.weather.data.database.entity.WeatherEntity
 
 @Dao
 interface CityDao {
+    @Query("SELECT * FROM city")
+    suspend fun getAll(): List<CityEntity>
+
     @Query("SELECT * FROM city WHERE name=:city LIMIT 1")
     suspend fun get(city: String? = null): CityEntity
 

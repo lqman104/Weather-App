@@ -24,8 +24,10 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,6 +35,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -53,6 +57,7 @@ import com.luqman.weather.R
 import com.luqman.weather.core.model.asString
 import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.model.Weather
+import com.luqman.weather.ui.city.CityDialog
 import com.luqman.weather.ui.model.WeatherGroup
 import com.luqman.weather.uikit.component.ImageComponent
 import com.luqman.weather.uikit.component.LoadingComponent
@@ -76,6 +81,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier
@@ -83,6 +89,7 @@ fun MainScreen(
     val viewModel: MainViewModel = viewModel()
     var query by remember { mutableStateOf("") }
     var job by remember { mutableStateOf<Job?>(null) }
+    var showDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(query) {
         // Cancel the previous job if a new character is typed within the debounce time
@@ -96,11 +103,32 @@ fun MainScreen(
     val state by viewModel.state.collectAsState()
 
     Scaffold(
-        modifier = modifier
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+                title = { },
+                actions = {
+                    Button(
+                        onClick = {
+                            showDialog = true
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Place,
+                            contentDescription = "List Favorite City"
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = stringResource(R.string.my_favorite_city_button))
+                    }
+                }
+            )
+        }
     ) { paddingValues ->
-        Column(modifier = modifier.padding(16.dp)) {
+        Column(modifier = modifier.padding(paddingValues)) {
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(16.dp)
             ) {
                 TextField(
                     modifier = Modifier.weight(1f),
@@ -141,7 +169,7 @@ fun MainScreen(
                     MainContent(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(paddingValues),
+                            .padding(16.dp),
                         allForecast = state.allForecast,
                         todayForecast = state.todayForecast
                     )
@@ -151,7 +179,7 @@ fun MainScreen(
                     LoadingComponent(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(paddingValues),
+                            .padding(16.dp),
                     )
                 }
 
@@ -159,7 +187,7 @@ fun MainScreen(
                     MessageScreenComponent(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(paddingValues),
+                            .padding(16.dp),
                         title = stringResource(id = CoreR.string.error_title),
                         message = state.getDataState?.error?.asString().orEmpty(),
                         showActionButton = true,
@@ -172,7 +200,7 @@ fun MainScreen(
                     MessageScreenComponent(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(paddingValues),
+                            .padding(16.dp),
                         title = stringResource(id = R.string.input_city_name),
                         message = stringResource(id = R.string.input_city_name_instruction),
                         showActionButton = false
@@ -180,6 +208,18 @@ fun MainScreen(
                 }
             }
         }
+    }
+
+    if (showDialog) {
+        CityDialog(
+            onCitySelected = {
+                query = it
+                showDialog = false
+            },
+            onDismiss = {
+                showDialog = false
+            }
+        )
     }
 }
 

@@ -10,4 +10,5 @@
     <string name="speed_suffix">m/s</string>
     <string name="humidity_label">Humidity</string>
     <string name="all_four_days_forecast">All forecast</string>
+    <string name="my_favorite_city_button">Favorites</string>
 </resources>
