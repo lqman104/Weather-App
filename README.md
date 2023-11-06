@@ -1,5 +1,5 @@
 # Weather Apps
-
+The app for showing today and 3 days ahead forecast
 
 ## How to run this 
 - Download JDK 17 ([link](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html))
@@ -12,8 +12,8 @@
 - Networking: Retrofit
 - Dependency Injection: Hilt
 - UI Framework: Jetpack compose
+- API: https://openweathermap.org/forecast5
 
 ## Structure
 - UI Layer: compose, view model
-- Domain: use cases
 - Data: repositories, api service
