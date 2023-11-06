@@ -20,8 +20,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -96,7 +99,9 @@ fun MainScreen(
         modifier = modifier
     ) { paddingValues ->
         Column(modifier = modifier.padding(16.dp)) {
-            Row {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 TextField(
                     modifier = Modifier.weight(1f),
                     enabled = state.getDataState !is Resource.Loading,
@@ -104,8 +109,30 @@ fun MainScreen(
                     onValueChange = { query = it }
                 )
 
-                IconButton(onClick = {  }) {
-
+                if (state.getDataState is Resource.Success) {
+                    Button(
+                        modifier = Modifier.size(56.dp),
+                        contentPadding = PaddingValues(
+                            all = 4.dp
+                        ),
+                        shape = MaterialTheme.shapes.small,
+                        onClick = {
+                            if (state.isFavoriteCity) {
+                                viewModel.deleteCity()
+                            } else {
+                                viewModel.saveCity()
+                            }
+                        }
+                    ) {
+                        if (state.isFavoriteCity) {
+                            Icon(imageVector = Icons.Filled.Favorite, contentDescription = null)
+                        } else {
+                            Icon(
+                                imageVector = Icons.Filled.FavoriteBorder,
+                                contentDescription = null
+                            )
+                        }
+                    }
                 }
             }
 

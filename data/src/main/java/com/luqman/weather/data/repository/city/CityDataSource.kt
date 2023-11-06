@@ -9,7 +9,7 @@ interface CityDataSource {
         cityName: String
     ): Resource<City>
 
-    suspend fun save(city: City)
+    suspend fun save(city: City): Long
 
     suspend fun delete(id: Int)
 }

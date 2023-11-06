@@ -24,7 +24,7 @@ class CityDataRepository(
         }
     }
 
-    override suspend fun save(city: City) {
+    override suspend fun save(city: City): Long {
         return withContext(dispatcher) {
             val save = CityEntity(
                 city.id,
