@@ -1,4 +1,4 @@
-package com.luqman.weather.data.repository
+package com.luqman.weather.data.repository.weather
 
 import com.luqman.weather.core.model.ResourceText
 import com.luqman.weather.core.network.exception.ImplementationShouldBeNotCalledException

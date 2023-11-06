@@ -1,4 +1,4 @@
-package com.luqman.weather.data.repository
+package com.luqman.weather.data.repository.weather
 
 import com.luqman.weather.core.network.model.Resource
 import com.luqman.weather.data.repository.model.Weather

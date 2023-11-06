@@ -5,8 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.luqman.weather.core.helper.DateHelper
 import com.luqman.weather.core.helper.DateHelper.getIntHours
 import com.luqman.weather.core.network.model.Resource
-import com.luqman.weather.data.repository.WeatherDataSource
-import com.luqman.weather.data.repository.model.Weather
+import com.luqman.weather.data.repository.weather.WeatherDataSource
 import com.luqman.weather.ui.model.WeatherGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview

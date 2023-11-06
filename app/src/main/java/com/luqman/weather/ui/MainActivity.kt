@@ -96,12 +96,18 @@ fun MainScreen(
         modifier = modifier
     ) { paddingValues ->
         Column(modifier = modifier.padding(16.dp)) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                enabled = state.getDataState !is Resource.Loading,
-                value = query,
-                onValueChange = { query = it }
-            )
+            Row {
+                TextField(
+                    modifier = Modifier.weight(1f),
+                    enabled = state.getDataState !is Resource.Loading,
+                    value = query,
+                    onValueChange = { query = it }
+                )
+
+                IconButton(onClick = {  }) {
+
+                }
+            }
 
             when (state.getDataState) {
                 is Resource.Success -> {

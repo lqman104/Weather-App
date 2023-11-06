@@ -3,11 +3,14 @@ package com.luqman.weather.data.di
 import android.content.Context
 import androidx.room.Room
 import com.luqman.weather.data.database.WeatherDatabase
+import com.luqman.weather.data.database.dao.CityDao
 import com.luqman.weather.data.database.dao.WeatherDao
-import com.luqman.weather.data.repository.LocalWeatherDataSource
-import com.luqman.weather.data.repository.RemoteWeatherDataSource
-import com.luqman.weather.data.repository.WeatherDataRepository
-import com.luqman.weather.data.repository.WeatherDataSource
+import com.luqman.weather.data.repository.city.CityDataRepository
+import com.luqman.weather.data.repository.city.CityDataSource
+import com.luqman.weather.data.repository.weather.LocalWeatherDataSource
+import com.luqman.weather.data.repository.weather.RemoteWeatherDataSource
+import com.luqman.weather.data.repository.weather.WeatherDataRepository
+import com.luqman.weather.data.repository.weather.WeatherDataSource
 import com.luqman.weather.data.services.WeatherApiService
 import dagger.Module
 import dagger.Provides
@@ -41,6 +44,17 @@ object RepositoryModule {
     fun provideWeatherDao(
         database: WeatherDatabase
     ): WeatherDao = database.getWeatherDao()
+
+    @Provides
+    @Singleton
+    fun provideCityDao(
+        database: WeatherDatabase
+    ): CityDao = database.getCityDao()
+
+    @Provides
+    fun provideCityRepository(
+        cityDao: CityDao
+    ): CityDataSource = CityDataRepository(cityDao, Dispatchers.IO)
 
     @Provides
     @LocalSource
